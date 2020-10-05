@@ -31,9 +31,15 @@ class _MyHomePageState extends State<HomePage> {
     );
   }
 
-  Widget _buildNameSettingsRow() => NameSettingsRow();
+  Widget _buildNameSettingsRow() => Flexible(
+      flex: 1,
+      fit: FlexFit.tight,
+      child:NameSettingsRow());
 
-  Widget _buildTabsWidget() => TabsWidget();
+  Widget _buildTabsWidget() => Flexible(
+      flex: 14,
+      fit: FlexFit.loose,
+      child: TabsWidget());
 
 
 }
