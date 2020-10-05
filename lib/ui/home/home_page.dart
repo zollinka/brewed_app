@@ -1,3 +1,6 @@
+import 'package:brewed/ui/home/home_name_settings_row.dart';
+import 'package:brewed/ui/home/home_tabs_widget.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 class HomePage extends StatefulWidget {
   HomePage({Key key, this.title}) : super(key: key);
@@ -15,9 +18,22 @@ class _MyHomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
+      body: SafeArea(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget> [
+            _buildNameSettingsRow(),
+            _buildTabsWidget(),
+          ],
+        )
+
       ),
     );
   }
+
+  Widget _buildNameSettingsRow() => NameSettingsRow();
+
+  Widget _buildTabsWidget() => TabsWidget();
+
+
 }
