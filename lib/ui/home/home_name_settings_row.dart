@@ -1,3 +1,4 @@
+import 'package:brewed/ui/home/settings_menu_popup.dart';
 import 'package:flutter/material.dart';
 
 class NameSettingsRow extends StatefulWidget {
@@ -27,7 +28,7 @@ class _NameSettingsRowState extends State<NameSettingsRow> {
           Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: <Widget>[
-              Icon(Icons.more_vert)
+              _buildSettingsMenu()
             ],
           ),
         ),
@@ -40,4 +41,6 @@ class _NameSettingsRowState extends State<NameSettingsRow> {
     "brewed",
     textAlign: TextAlign.left,
   );
+
+  Widget _buildSettingsMenu() => settingsMenuPopup();
 }
