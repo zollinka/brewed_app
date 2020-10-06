@@ -28,6 +28,12 @@ class _MyHomePageState extends State<HomePage> {
         )
 
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+
+        },
+        child: Icon(Icons.camera_alt),
+      )
     );
   }
 

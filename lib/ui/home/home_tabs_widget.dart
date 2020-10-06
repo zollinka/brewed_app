@@ -7,6 +7,8 @@ class TabsWidget extends StatefulWidget {
 class _TabsWidgetState extends State<TabsWidget> {
   @override
   Widget build(BuildContext context) {
+
+
     return DefaultTabController(
       length: 3,
       child: Column(
@@ -33,4 +35,6 @@ class _TabsWidgetState extends State<TabsWidget> {
       )
     );
   }
+
+
 }

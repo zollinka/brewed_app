@@ -37,7 +37,7 @@ class _NameSettingsRowState extends State<NameSettingsRow> {
 
 
   Widget _buildTabName() => Text(
-    "Top Beers",
+    "brewed",
     textAlign: TextAlign.left,
   );
 }

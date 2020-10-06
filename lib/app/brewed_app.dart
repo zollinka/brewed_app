@@ -1,3 +1,4 @@
+import 'package:brewed/app/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:brewed/ui/home/home_page.dart';
 
@@ -6,10 +7,7 @@ class BrewedApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
+      theme: AppThemeDataFactory.prepareThemeData(),
       home: HomePage(),
     );
   }
