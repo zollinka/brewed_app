@@ -1,6 +1,7 @@
 import 'package:brewed/ui/beer/beer_attributes.dart';
 import 'package:brewed/ui/beer/beer_info.dart';
 import 'package:brewed/ui/beer/star_rating.dart';
+import 'package:brewed/ui/home/settings_menu_popup.dart';
 import 'package:flutter/material.dart';
 
 class BeerPage extends StatefulWidget {
@@ -15,6 +16,9 @@ class _BeerPageState extends State<BeerPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Rate this app"),
+        actions: [
+          settingsMenuPopup()
+        ],
       ),
       body: SafeArea(
         child: Column(
