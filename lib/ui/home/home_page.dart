@@ -1,3 +1,4 @@
+import 'package:brewed/ui/beer/beer_page.dart';
 import 'package:brewed/ui/home/home_name_settings_row.dart';
 import 'package:brewed/ui/home/home_tabs_widget.dart';
 import 'package:flutter/cupertino.dart';
@@ -30,7 +31,7 @@ class _MyHomePageState extends State<HomePage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-
+            _goToCamera();
         },
         child: Icon(Icons.camera_alt),
       )
@@ -47,5 +48,10 @@ class _MyHomePageState extends State<HomePage> {
       fit: FlexFit.loose,
       child: TabsWidget());
 
-
+  void _goToCamera() {
+    Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => BeerPage())
+    );
+  }
 }
