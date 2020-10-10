@@ -7,18 +7,22 @@ class BeerInfo extends StatelessWidget {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        Flexible(
+        Expanded(
           flex: 4,
-          child: Icon(Icons.camera),
+          child: Image.network("https://icon-library.com/images/beer-bottle-icon/beer-bottle-icon-6.jpg"),
         ),
         Spacer(flex: 1),
-        Flexible(
+        Expanded(
           flex: 6,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Expanded(
-                child: Text("Baaaaaaaaaaaaardzo dluga nazwa piwa"),
+                child: RichText(
+                    text: TextSpan(
+                      text: "Baaaaaaaaaaaaardzo dluga nazwa piwa",
+                      style: Theme.of(context).textTheme.headline6
+                    )),
               ),
               Expanded(child: Text("Nazwa browaru")),
               Row(
