@@ -26,17 +26,15 @@ class AttributeSliderThumb extends SliderComponentShape {
       }) {
     final Canvas canvas = context.canvas;
 
-    final paint = Paint()
-      ..color = Colors.white //Thumb Background Color
-      ..style = PaintingStyle.fill;
+    final paint = Paint();
 
     TextSpan span = new TextSpan(
-      style: new TextStyle(
+      /*style: new TextStyle(
         fontSize: thumbRadius * .8,
         fontWeight: FontWeight.w700,
         color: sliderTheme.thumbColor, //Text Color of Value on Thumb
-      ),
-      text: value.toString(),
+      ),*/
+      text: this.value.toString(),
     );
 
     TextPainter tp = new TextPainter(

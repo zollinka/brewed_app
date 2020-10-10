@@ -10,16 +10,33 @@ class AttributeSlider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SliderTheme(
-      data: SliderTheme.of(context).copyWith(
-        thumbShape: AttributeSliderThumb(thumbRadius: 20, value: this.value)
-      ),
-      child: Slider(
-      value: this.value,
-      min: 0,
-      max: this.max
-      )
-    );
+    return Column(
+        children: [
+    Flexible(child: Row(
+    children: <Widget>[
+    Expanded(
+        child: Divider()
+    ),
+
+    Text(attribute),
+
+    Expanded(
+    child: Divider()
+    ),
+    ]
+    ),),
+          Flexible( child: SliderTheme(
+            data: SliderTheme.of(context).copyWith(
+            thumbShape: AttributeSliderThumb(thumbRadius: 20,
+            value: this.value
+            )
+            ),
+            child: Slider(
+            value: this.value,
+            min: 0,
+            max: this.max
+            )
+          ))]);
   }
 }
 

@@ -19,17 +19,17 @@ class _BeerPageState extends State<BeerPage> {
       body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Flexible(
-            flex:3,
             child: BeerInfo()),
             Flexible(
-              flex: 1,
               child: StarRating(
                 rating: rating,
                 onRatingChanged: (rating) => setState(() => this.rating = rating))),
-            Flexible(
-              flex: 3,
+            //Spacer(flex: 1,),
+            Expanded(
+              flex: 2,
               child: BeerAtribbutes()
             )
           ],

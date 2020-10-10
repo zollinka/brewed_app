@@ -12,9 +12,9 @@ class TabInfo extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        AttributeSlider(value: ibu, attribute: Constants.ibu, max: 150),
-        AttributeSlider(value: temp, attribute: Constants.temperature, max: 30,),
-        AttributeSlider(value: percent, attribute: Constants.alcohol_percentage, max: 20,)
+        Flexible(child: AttributeSlider(value: ibu, attribute: Constants.ibu, max: 150)),
+        Flexible(child:AttributeSlider(value: temp, attribute: Constants.temperature, max: 30,)),
+        Flexible(child:AttributeSlider(value: percent, attribute: Constants.alcohol_percentage, max: 20,))
       ],
     );
   }
