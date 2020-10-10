@@ -1,3 +1,4 @@
+import 'package:brewed/ui/beer/attr_slider_thumb.dart';
 import 'package:flutter/material.dart';
 
 class AttributeSlider extends StatelessWidget {
@@ -9,11 +10,15 @@ class AttributeSlider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Slider(
+    return SliderTheme(
+      data: SliderTheme.of(context).copyWith(
+        thumbShape: AttributeSliderThumb(thumbRadius: 20, value: this.value)
+      ),
+      child: Slider(
       value: this.value,
-      label: this.value.toString(),
       min: 0,
       max: this.max
+      )
     );
   }
 }
