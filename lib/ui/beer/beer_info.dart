@@ -1,4 +1,5 @@
 import 'package:brewed/ui/beer/star_rating.dart';
+import 'package:brewed/ui/brewery/brewery_page.dart';
 import 'package:flutter/material.dart';
 
 class BeerInfo extends StatelessWidget {
@@ -11,7 +12,7 @@ class BeerInfo extends StatelessWidget {
           flex: 4,
           child: Image.network("https://icon-library.com/images/beer-bottle-icon/beer-bottle-icon-6.jpg"),
         ),
-        Spacer(flex: 1),
+        VerticalDivider(),
         Expanded(
           flex: 6,
           child: Column(
@@ -24,7 +25,15 @@ class BeerInfo extends StatelessWidget {
                       style: Theme.of(context).textTheme.headline6
                     )),
               ),
-              Expanded(child: Text("Brewery name")),
+
+              Expanded(child: FlatButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => BreweryPage())
+                  );
+                    },
+                  child: Text("Brewery Name")),),
               Expanded(child: Text("Beer Type")),
               Row(
                 children: [
@@ -38,5 +47,12 @@ class BeerInfo extends StatelessWidget {
         )
       ],
     );
+  }
+
+  void _goToBrewery() {
+    /*Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => BreweryPage())
+    );*/
   }
 }
