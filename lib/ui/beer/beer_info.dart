@@ -20,11 +20,12 @@ class BeerInfo extends StatelessWidget {
               Expanded(
                 child: RichText(
                     text: TextSpan(
-                      text: "Baaaaaaaaaaaaardzo dluga nazwa piwa",
+                      text: "Beer name",
                       style: Theme.of(context).textTheme.headline6
                     )),
               ),
-              Expanded(child: Text("Nazwa browaru")),
+              Expanded(child: Text("Brewery name")),
+              Expanded(child: Text("Beer Type")),
               Row(
                 children: [
                   StarRating(starCount: 1, rating: 3.5),
