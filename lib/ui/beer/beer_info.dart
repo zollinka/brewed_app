@@ -37,7 +37,7 @@ class BeerInfo extends StatelessWidget {
               Expanded(child: Text("Beer Type")),
               Row(
                 children: [
-                  StarRating(starCount: 1, rating: 3.5),
+                  StarRating(starCount: 1, rating: 3.5/5),
                   Text("3.5/5")
                 ],
               ),
