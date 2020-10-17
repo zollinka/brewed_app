@@ -1,6 +1,8 @@
 import 'package:brewed/ui/beer/beer_page.dart';
 import 'package:brewed/ui/home/home_name_settings_row.dart';
 import 'package:brewed/ui/home/home_tabs_widget.dart';
+import 'package:brewed/ui/home/photo_capture_view.dart';
+import 'package:camera/camera.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 class HomePage extends StatefulWidget {
@@ -48,10 +50,12 @@ class _MyHomePageState extends State<HomePage> {
       fit: FlexFit.loose,
       child: TabsWidget());
 
-  void _goToCamera() {
+  Future<void> _goToCamera() async {
+    final cameras = await availableCameras();
+    final firstCamera = cameras.first;
     Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => BeerPage())
+        MaterialPageRoute(builder: (context) => PhotoCaptureView(camera: firstCamera,))
     );
   }
 }
