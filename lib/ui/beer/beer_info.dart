@@ -1,8 +1,12 @@
+import 'package:brewed/ui/beer/Beer.dart';
 import 'package:brewed/ui/beer/star_rating.dart';
 import 'package:brewed/ui/brewery/brewery_page.dart';
 import 'package:flutter/material.dart';
 
 class BeerInfo extends StatelessWidget {
+  Beer beer;
+  BeerInfo(this.beer);
+
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -21,7 +25,7 @@ class BeerInfo extends StatelessWidget {
               Expanded(
                 child: RichText(
                     text: TextSpan(
-                      text: "Beer name",
+                      text: beer.name,
                       style: Theme.of(context).textTheme.headline6
                     )),
               ),

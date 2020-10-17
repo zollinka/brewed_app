@@ -1,8 +1,13 @@
+import 'package:brewed/ui/beer/Beer.dart';
 import 'package:brewed/ui/beer/tab_flavor.dart';
 import 'package:brewed/ui/beer/tab_info.dart';
 import 'package:flutter/material.dart';
 
 class BeerAtribbutes extends StatelessWidget {
+  Beer beer;
+
+  BeerAtribbutes(this.beer);
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
