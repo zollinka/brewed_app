@@ -14,16 +14,15 @@ class _TabsWidgetState extends State<TabsWidget> {
       length: 3,
       child: Column(
         children: [
-          Flexible(
-      child:  TabBar(
+          TabBar(
             tabs: [
               Tab(icon: Icon(Icons.ac_unit)),
               Tab(icon: Icon(Icons.search)),
               Tab(icon: Icon(Icons.person)),
             ],
           ),
-          ),
-          Flexible(
+
+          Expanded(
             child: TabBarView(
             children: [
               Tab(text: "List of favourites || Ranking"),

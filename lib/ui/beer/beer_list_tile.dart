@@ -1,4 +1,5 @@
 import 'package:brewed/ui/beer/Beer.dart';
+import 'package:brewed/ui/beer/beer_page.dart';
 import 'package:flutter/material.dart';
 
 class BeerListTile extends StatelessWidget {
@@ -14,7 +15,14 @@ class BeerListTile extends StatelessWidget {
           style: Theme.of(context).textTheme.bodyText2,
         ),
       subtitle: Text("Brewery name"),
-
+      onTap: () {_goToBeer(context);}
     );
+  }
+
+  void _goToBeer(context){
+    Navigator.push(context,
+        MaterialPageRoute(
+          builder: (BuildContext context) => BeerPage(), //response.data.toString(),),
+        ));
   }
 }

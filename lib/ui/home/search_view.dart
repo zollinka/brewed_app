@@ -36,7 +36,7 @@ class _SearchViewState extends State<SearchView> {
 Future<List<Beer>> search(String search) async {
   await Future.delayed(Duration(seconds: 2));
   return List.generate(search.length, (int index) {
-    return Beer("Jajco");
+    return Beer("Veeeeeeeeeeeeery long beer name");
   });
 }
 

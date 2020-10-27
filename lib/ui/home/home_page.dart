@@ -40,14 +40,14 @@ class _MyHomePageState extends State<HomePage> {
     );
   }
 
-  Widget _buildNameSettingsRow() => Flexible(
+  Widget _buildNameSettingsRow() => Expanded(
       flex: 1,
-      fit: FlexFit.tight,
+      //fit: FlexFit.tight,
       child:NameSettingsRow());
 
-  Widget _buildTabsWidget() => Flexible(
-      flex: 14,
-      fit: FlexFit.loose,
+  Widget _buildTabsWidget() => Expanded(
+      flex: 9,
+      //fit: FlexFit.tight,
       child: TabsWidget());
 
   Future<void> _goToCamera() async {

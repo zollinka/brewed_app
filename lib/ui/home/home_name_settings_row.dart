@@ -10,8 +10,9 @@ class _NameSettingsRowState extends State<NameSettingsRow> {
   @override
   Widget build(BuildContext context) {
     return Row(
+      //crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget> [
-        Flexible(
+        Expanded(
           flex:8,
           child:
           Column(
@@ -22,7 +23,7 @@ class _NameSettingsRowState extends State<NameSettingsRow> {
             ],
           ),
         ),
-        Flexible(
+        Expanded(
           flex: 1,
           child:
           Column(

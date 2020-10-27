@@ -16,6 +16,8 @@ class BeerPage extends StatefulWidget {
 class _BeerPageState extends State<BeerPage> {
   double rating = 3.5;
   Beer beer;
+
+  bool _loading = true;
   
   @override
   void initState() {
@@ -26,17 +28,18 @@ class _BeerPageState extends State<BeerPage> {
   void dispose() {
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Rate this app"),
+        //title: Text("Bee"),
         actions: [
           settingsMenuPopup()
         ],
       ),
       body: SafeArea(
-        child: Column(
+        child: _loading ? CircularProgressIndicator(): Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
@@ -66,6 +69,7 @@ class _BeerPageState extends State<BeerPage> {
     print(response.data);
     setState(() {
       beer = Beer.fromJson(response.data);
+      _loading = false;
     });
   }
 }

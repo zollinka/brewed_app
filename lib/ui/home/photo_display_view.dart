@@ -16,7 +16,7 @@ class PhotoDisplayView extends StatelessWidget {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget> [
-          Image.file(File(imagePath)),
+          Expanded(child: Image.file(File(imagePath))),
           Expanded(
               child: FlatButton(
                 child: Text("Search with this label"),
