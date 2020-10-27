@@ -1,3 +1,4 @@
+import 'package:brewed/ui/home/search_view.dart';
 import 'package:flutter/material.dart';
 class TabsWidget extends StatefulWidget {
   @override
@@ -25,8 +26,8 @@ class _TabsWidgetState extends State<TabsWidget> {
           Flexible(
             child: TabBarView(
             children: [
-              Tab(icon: Icon(Icons.ac_unit)),
-              Tab(icon: Icon(Icons.search)),
+              Tab(text: "List of favourites || Ranking"),
+              SearchView(),
               Tab(icon: Icon(Icons.person)),
             ],
           ),

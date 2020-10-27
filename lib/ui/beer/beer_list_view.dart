@@ -1,3 +1,4 @@
+import 'package:brewed/ui/beer/Beer.dart';
 import 'package:brewed/ui/beer/beer_list_tile.dart';
 import 'package:flutter/material.dart';
 
@@ -7,18 +8,18 @@ class BeerListView extends StatefulWidget {
 }
 
 class _BeerListViewState extends State<BeerListView> {
-  final _beer_list = <String>[];
+  final _beerList = <Beer>[];
 
   @override
   Widget build(BuildContext context) {
-    _beer_list.add('ABC');
-    _beer_list.add('DEF');
-    final tiles = _beer_list.map(
-          (String beer) {
+    _beerList.add(Beer('ABC'));
+    _beerList.add(Beer('DEF'));
+    final tiles = _beerList.map(
+          (Beer beer) {
         return BeerListTile(beer: beer);
       },
     );
-    final beer_tiles_divided = ListTile.divideTiles(context: context ,tiles: tiles).toList();
-    return ListView(children: beer_tiles_divided,);
+    final beerTilesDivided = ListTile.divideTiles(context: context ,tiles: tiles).toList();
+    return ListView(children: beerTilesDivided,);
   }
 }
