@@ -3,10 +3,10 @@ import 'package:brewed/ui/beer/tab_flavor.dart';
 import 'package:brewed/ui/beer/tab_info.dart';
 import 'package:flutter/material.dart';
 
-class BeerAtribbutes extends StatelessWidget {
-  Beer beer;
+class BeerAttributes extends StatelessWidget {
+  final Beer beer;
 
-  BeerAtribbutes(this.beer);
+  BeerAttributes(this.beer);
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +27,7 @@ class BeerAtribbutes extends StatelessWidget {
             Flexible(
               child: TabBarView(
                 children: [
-                  TabInfo(),
+                  TabInfo(beer),
                   TabFlavor(),
                   Tab(icon: Icon(Icons.person)),
                   Tab(icon: Icon(Icons.person)),

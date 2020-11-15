@@ -1,10 +1,11 @@
+import 'package:brewed/ui/Constants.dart';
 import 'package:brewed/ui/beer/Beer.dart';
 import 'package:brewed/ui/beer/star_rating.dart';
 import 'package:brewed/ui/brewery/brewery_page.dart';
 import 'package:flutter/material.dart';
 
 class BeerInfo extends StatelessWidget {
-  Beer beer;
+  final Beer beer;
   BeerInfo(this.beer);
 
   @override
@@ -34,11 +35,12 @@ class BeerInfo extends StatelessWidget {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => BreweryPage())
+                      MaterialPageRoute(builder: (context) => BreweryPage(beer.brewery))
                   );
                     },
-                  child: Text("Brewery Name")),),
-              Expanded(child: Text("Beer Type")),
+                  child: Text(beer.brewery.name)),),
+              Expanded(child: (beer.beerType != null) ? Text(beer.beerType) : Text(Constants.noData)),
+              Expanded(child: (beer.barCode != null) ? Text(beer.barCode) : Text(Constants.noData),),
               Row(
                 children: [
                   StarRating(starCount: 1, rating: 3.5/5),
@@ -53,10 +55,4 @@ class BeerInfo extends StatelessWidget {
     );
   }
 
-  void _goToBrewery() {
-    /*Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => BreweryPage())
-    );*/
-  }
 }
