@@ -17,7 +17,7 @@ class _NameSettingsRowState extends State<NameSettingsRow> {
           child:
           Column(
 
-            crossAxisAlignment: CrossAxisAlignment.stretch,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               _buildTabName(),
             ],
@@ -38,10 +38,7 @@ class _NameSettingsRowState extends State<NameSettingsRow> {
   }
 
 
-  Widget _buildTabName() => Text(
-    "brewed",
-    textAlign: TextAlign.left,
-  );
+  Widget _buildTabName() => new Image.asset('lib/assets/brewed_title.png', scale: 1.2,);
 
   Widget _buildSettingsMenu() => settingsMenuPopup();
 }
