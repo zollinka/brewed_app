@@ -1,9 +1,11 @@
 import 'dart:io';
 
+import 'package:brewed/API.dart';
+import 'package:brewed/db/DB.dart';
+import 'package:brewed/ui/beer/Beer.dart';
 import 'package:brewed/ui/beer/beer_page.dart';
-import 'package:dio/dio.dart';
+import 'package:brewed/ui/brewery/Brewery.dart';
 import 'package:flutter/material.dart';
-import 'package:path/path.dart';
 
 class PhotoDisplayView extends StatelessWidget {
   final String imagePath;
@@ -21,33 +23,26 @@ class PhotoDisplayView extends StatelessWidget {
               child: FlatButton(
                 child: Text("Search with this label"),
             onPressed: () => _postToAPI(context),
-
           ))
-
         ],
       ),
     );
   }
 
-  Future <void> _postToAPI(context)
-  async {
-    Dio dio = new Dio();
-    dio.options.baseUrl= "http://demo9540477.mockable.io";
-    dio.options.connectTimeout=30000;
-
-    FormData formData = new FormData.fromMap({"image": await MultipartFile.fromFile(imagePath)});
-    final response = await dio.post("/predict",
-      data: formData,
-      onSendProgress: (int sent, int total) {
-          print("$sent $total");}
-    );
+  void _postToAPI(context) async
+  {
+    //var response = await API.getBeer();
+    var response = await API.predict(imagePath);
     _goToBeer(context, response);
   }
 
-  void _goToBeer(context, response){
+  void _goToBeer(context, response) async {
+    //Beer beer = Beer.fromJson(response);
+    Beer beer = await DB.getBeerByBarCode(response['label']);
+    //Beer beer = await DB.getBeerByBarCode(response['barCode']['barCode']);
     Navigator.push(context,
         MaterialPageRoute(
-          builder: (BuildContext context) => BeerPage(), //response.data.toString(),),
+          builder: (BuildContext context) => BeerPage(beer), //response.data.toString(),),
         ));
   }
 }

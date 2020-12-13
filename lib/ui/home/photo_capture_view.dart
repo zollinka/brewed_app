@@ -25,7 +25,7 @@ class _PhotoCaptureViewState extends State<PhotoCaptureView> {
 
     _controller = CameraController(
       widget.camera,
-      ResolutionPreset.max,
+      ResolutionPreset.low,
     );
 
     _initializeControllerFuture = _controller.initialize();
@@ -52,13 +52,14 @@ class _PhotoCaptureViewState extends State<PhotoCaptureView> {
         },
       ),
       floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.camera),
         onPressed: () async {
           try {
             await _initializeControllerFuture;
 
             final path = join(
               (await getTemporaryDirectory()).path,
-              '${DateTime.now()}.png',
+              '${DateTime.now()}.jpeg',
             );
 
             await _controller.takePicture(path);
