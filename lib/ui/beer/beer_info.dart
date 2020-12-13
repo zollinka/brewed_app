@@ -43,8 +43,8 @@ class BeerInfo extends StatelessWidget {
               Expanded(child: (beer.barCode != null) ? Text(beer.barCode) : Text(Constants.noData),),
               Row(
                 children: [
-                  StarRating(starCount: 1, rating: 3.5/5),
-                  Text("3.5/5")
+                  StarRating(starCount: 1, rating: (beer.rating != null ) ? beer.rating/5: 0 /5),
+                  (beer.rating != null ) ? Text(beer.rating.toString() + "/5"): Text("No ratings")
                 ],
               ),
 

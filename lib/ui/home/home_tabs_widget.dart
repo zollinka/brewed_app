@@ -1,3 +1,4 @@
+import 'package:brewed/ui/home/favourites_tab.dart';
 import 'package:brewed/ui/home/search_view.dart';
 import 'package:flutter/material.dart';
 class TabsWidget extends StatefulWidget {
@@ -16,18 +17,20 @@ class _TabsWidgetState extends State<TabsWidget> {
         children: [
           TabBar(
             tabs: [
-              Tab(icon: Icon(Icons.ac_unit)),
+              Tab(icon: Icon(Icons.star)),
               Tab(icon: Icon(Icons.search)),
-              Tab(icon: Icon(Icons.person)),
+              Tab(icon: Icon(Icons.favorite)),
             ],
           ),
 
           Expanded(
             child: TabBarView(
             children: [
-              Tab(text: "List of favourites || Ranking"),
+              Tab(icon: Icon(Icons.star)),
               SearchView(),
-              Tab(icon: Icon(Icons.person)),
+              FavouritesTab(),
+
+
             ],
           ),
           )

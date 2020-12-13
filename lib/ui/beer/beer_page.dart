@@ -1,8 +1,12 @@
+import 'package:brewed/API.dart';
+import 'package:brewed/db/DB.dart';
 import 'package:brewed/ui/beer/Beer.dart';
 import 'package:brewed/ui/beer/beer_attributes.dart';
 import 'package:brewed/ui/beer/beer_info.dart';
+import 'package:brewed/ui/beer/beer_rating.dart';
 import 'package:brewed/ui/beer/star_rating.dart';
 import 'package:brewed/ui/home/settings_menu_popup.dart';
+import 'package:brewed/ui/rating/Rating.dart';
 import 'package:flutter/material.dart';
 
 class BeerPage extends StatefulWidget {
@@ -15,7 +19,7 @@ class BeerPage extends StatefulWidget {
 }
 
 class _BeerPageState extends State<BeerPage> {
-  double rating = 3.5;
+  Rating rating;
   Beer beer;
 
   _BeerPageState(this.beer);
@@ -23,6 +27,8 @@ class _BeerPageState extends State<BeerPage> {
   @override
   void initState() {
     super.initState();
+    _getAttributes();
+    _getRating();
   }
 
   void dispose() {
@@ -34,7 +40,7 @@ class _BeerPageState extends State<BeerPage> {
     return Scaffold(
       appBar: AppBar(
         actions: [
-          settingsMenuPopup()
+          SettingsMenuPopup()
         ],
       ),
       body: SafeArea(
@@ -47,17 +53,41 @@ class _BeerPageState extends State<BeerPage> {
             child: BeerInfo(beer)),
             Flexible(
               child: StarRating(
-                rating: rating,
-                onRatingChanged: (rating) => setState(() => this.rating = rating))),
+                rating: (rating != null) ? rating.rating: 0,
+                onRatingChanged: (rating) => _setRating(context, rating))),
             //Spacer(flex: 1,),
             Expanded(
               flex: 2,
-              child: BeerAttributes(beer)
+              child: BeerAttributes(beer, rating)
             )
           ],
         ),
       )
     );
   }
+  void _getRating() async{
+    Rating rating = await DB.getRatingByBeer(beer.id);
+    setState(() {
+      this.rating = (rating != null) ? rating: null;
+    });
+  }
 
+  void _getAttributes() async{
+    Beer beerA = this.beer.update(await API.getAttributeOfBeer(this.beer.id));
+    setState(() { this.beer = beerA;});
+  }
+
+  void _setRating(context, rating){
+    //setState(() { this.rating.rating = rating;});
+    _goToRating(context);
+  }
+
+  Future<void> _goToRating(context) async {
+    await Navigator.push(context,
+        MaterialPageRoute(
+          builder: (BuildContext context) => BeerRating(beer),
+        ));
+    _getRating();
+    _getAttributes();
+  }
 }
