@@ -40,5 +40,5 @@ class _NameSettingsRowState extends State<NameSettingsRow> {
 
   Widget _buildTabName() => new Image.asset('lib/assets/brewed_title.png', scale: 1.2,);
 
-  Widget _buildSettingsMenu() => settingsMenuPopup();
+  Widget _buildSettingsMenu() => SettingsMenuPopup();
 }
