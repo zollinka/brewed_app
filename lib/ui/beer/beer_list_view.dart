@@ -1,6 +1,5 @@
 import 'package:brewed/ui/beer/Beer.dart';
 import 'package:brewed/ui/beer/beer_list_tile.dart';
-import 'package:brewed/ui/brewery/Brewery.dart';
 import 'package:flutter/material.dart';
 
 class BeerListView extends StatefulWidget {

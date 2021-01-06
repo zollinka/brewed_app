@@ -22,11 +22,12 @@ class DB{
     );
     final List<Beer> beers = Beer.listFromJson(await API.getBeers());
     //final Beer beer = Beer.fromJson(await API.getBeer());
-    final Rating rating = Rating.fromJson(await API.getRatingByBeer("  "));
+    //final Rating rating = Rating.fromJson(await API.getRatingByBeer("  "));
     await insertBeers(beers);
     //await insertBeer(beer);
-    await insertRating(rating);
+    //await insertRating(rating);
   }
+
 
   static Future<void> insertBrewery(Brewery brewery) async{
     final Database db = await database;
@@ -104,6 +105,12 @@ class DB{
     else {
       return null;
     }
+  }
+
+  static Future<List<Beer>> getBeersFiltered() async{
+    final List<Beer> beers = Beer.listFromJson(await API.getFilteredBeers());
+    await insertBeers(beers);
+    return beers;
   }
 
 }

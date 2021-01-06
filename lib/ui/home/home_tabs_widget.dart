@@ -33,7 +33,7 @@ class _TabsWidgetState extends State<TabsWidget> {
             padding: EdgeInsets.only(left:20.0,right:20.0),
             child: TabBarView(
             children: [
-              Tab(icon: Icon(Icons.star)),
+              SearchWithFilters(),
               SearchView(),
               FavouritesTab(),
 

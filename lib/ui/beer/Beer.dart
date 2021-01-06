@@ -6,53 +6,26 @@ class Beer {
   double alcoholPercentage;
   double temperature;
   double ibu;
-  double amountOfHead;
-  double malt;
-  double hops;
-  double yeast;
-  double diacetyl;
   double sweetness;
   double dryness;
   double sourness;
   double bitterness;
-  double fruitIntensity;
   String note;
-  String color;
-  double clarity;
   String beerType;
   String barCode;
   Brewery brewery;
   double rating;
 
-  Beer(
-      this.name,
-      this.brewery
-      /*this.alcoholPercentage,
-      this.temperature,
-      this.ibu,
-      this.amountOfHead,
-      this.malt,
-      this.hops,
-      this.yeast,
-      this.diacetyl,
-      this.sweetness,
-      this.dryness,
-      this.sourness,
-      this.bitterness,
-      this.fruitIntensity,
-      this.fruit,
-      this.color,
-      this.clarity,
-      this.beerType,
-      this.barCode*/);
+
   Beer.fromJson(Map json){
       id = json['id'];
       name = json['name'];
       brewery = Brewery.fromJson(json['brewery']);
-      beerType = json['type']['type'];
+      beerType = (json['beerType'] != null)? json['beerType']['type'] : null;
       alcoholPercentage = json['alcoholPercentage'];
-      note = json['note']['note'];
+      note = (json['beerNote'] != null) ? json['beerNote']['note']: null;
       barCode = json['barCode'];
+      ibu = json['ibu'];
   }
 
   Beer.fromMap(Map json){
@@ -61,7 +34,7 @@ class Beer {
     brewery = Brewery(json['breweryId'], json['breweryName'], json['address'], json['description']);
     beerType = json['beerType'];
     alcoholPercentage = json['alcoholPercentage'];
-    //flavor = json['beerAttributes']['flavor'];
+    note = json['note'];
     barCode = json['barCode'];
     ibu = json['ibu'];
   }
@@ -72,35 +45,24 @@ class Beer {
     brewery = Brewery(json['breweryId'], json['breweryName'], json['breweryAddress'], json['breweryDescription']);
     beerType = json['beerType'];
     alcoholPercentage = json['alcoholPercentage'];
-    //flavor = json['beerAttributes']['flavor'];
+    note = json['note'];
     barCode = json['barCode'];
     ibu = json['ibu'];
   }
 
   Map<String, dynamic> toMap() {
     var breweryId = (brewery.id != null) ? brewery.id: null;
-    //var breweryName = (brewery.name != null) ? brewery.name: null;
-    //var breweryAddress = (brewery.address != null) ? brewery.address: null;
-    //var breweryDesc = (brewery.description != null) ? brewery.description: null;
     return {
       'id': id,
       'name': name,
       'alcoholPercentage': alcoholPercentage,
       'temperature': temperature,
       'ibu': ibu,
-      'amountOfHead': amountOfHead,
-      'malt': malt,
-      'hops': hops,
-      'yeast': yeast,
-      'diacetyl': diacetyl,
       'sweetness': sweetness,
       'dryness': dryness,
       'sourness': sourness,
       'bitterness': bitterness,
-      'fruitIntensity': fruitIntensity,
-      'fruit': note,
-      'color': color,
-      'clarity': clarity,
+      'note': note,
       'beerType': beerType,
       'barCode': barCode,
       'breweryId': breweryId,
@@ -118,19 +80,11 @@ class Beer {
       'alcoholPercentage': alcoholPercentage,
       'temperature': temperature,
       'ibu': ibu,
-      'amountOfHead': amountOfHead,
-      'malt': malt,
-      'hops': hops,
-      'yeast': yeast,
-      'diacetyl': diacetyl,
       'sweetness': sweetness,
       'dryness': dryness,
       'sourness': sourness,
       'bitterness': bitterness,
-      'fruitIntensity': fruitIntensity,
-      'fruit': note,
-      'color': color,
-      'clarity': clarity,
+      'note': note,
       'beerType': beerType,
       'barCode': barCode,
       'breweryId': breweryId,
