@@ -14,6 +14,8 @@ class BeerGuide extends StatelessWidget {
       children: [
         BeerGuideTile(Constants.lagertitle, Constants.lagerdesc),
         BeerGuideTile(Constants.pilznertitle, Constants.pilznerdesc),
+        BeerGuideTile(Constants.portertitle, Constants.porterdesc),
+        BeerGuideTile(Constants.bocktitle, Constants.bockdesc),
       ],
     );
     final _beerStyleHighTile = ExpansionTile(
@@ -21,6 +23,11 @@ class BeerGuide extends StatelessWidget {
       initiallyExpanded: true,
       childrenPadding: EdgeInsets.symmetric(vertical: 2.0, horizontal: 30.0),
       children: [
+        BeerGuideTile(Constants.weizentitle, Constants.weizendesc),
+        BeerGuideTile(Constants.stouttitle, Constants.stoutdesc),
+        BeerGuideTile(Constants.sourtitle, Constants.sourdesc),
+        BeerGuideTile(Constants.ipatitle, Constants.ipadesc),
+        BeerGuideTile(Constants.apatitle, Constants.apadesc),
       ],
     );
     final _beerStyleTile = ExpansionTile(

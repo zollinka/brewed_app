@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:brewed/ui/Constants.dart';
 import 'package:brewed/ui/home/photo_display_view.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
@@ -39,15 +42,27 @@ class _PhotoCaptureViewState extends State<PhotoCaptureView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Take photo of beer label')),
+      appBar: AppBar(title: Text(Constants.takePhoto)),
       body: FutureBuilder<void>(
         future: _initializeControllerFuture,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
-            return CameraPreview(_controller);
+            return AspectRatio(
+                aspectRatio: _controller.value.aspectRatio,
+                child: Stack(
+                children: <Widget>[
+                  Positioned.fill(child: CameraPreview(_controller)),
+                  Positioned.fill(
+                      child: Opacity(
+                    opacity: 0.4,
+                    child: Image.asset('lib/assets/camera_overlay.png',
+                      fit: BoxFit.fill,),
+                    ))
+            ]));
           }
           else{
-            return Center(child: CircularProgressIndicator(),);
+            return Center(
+              child: CircularProgressIndicator());
           }
         },
       ),
@@ -56,23 +71,19 @@ class _PhotoCaptureViewState extends State<PhotoCaptureView> {
         onPressed: () async {
           try {
             await _initializeControllerFuture;
-
-            final path = join(
-              (await getTemporaryDirectory()).path,
-              '${DateTime.now()}.jpeg',
-            );
-
-            await _controller.takePicture(path);
+            XFile photo = await _controller.takePicture();
             Navigator.push(context,
                 MaterialPageRoute(
-                  builder: (context) => PhotoDisplayView(imagePath: path), //response.data.toString(),),
+                  builder: (context) => PhotoDisplayView(imagePath: photo.path), //response.data.toString(),),
                 ));
           }
           catch (e) {
             print(e);
           }
         },
+
       ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat
     );
   }
 }

@@ -22,6 +22,7 @@ class _MyHomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
+        minimum: EdgeInsets.only(top:10.0, bottom:10.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget> [
@@ -36,7 +37,13 @@ class _MyHomePageState extends State<HomePage> {
             _goToCamera();
         },
         child: Icon(Icons.camera_alt),
-      )
+        elevation: 20.0,
+        hoverElevation: 5.0,
+        highlightElevation: 5.0,
+        focusElevation: 5.0,
+
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat
     );
   }
 

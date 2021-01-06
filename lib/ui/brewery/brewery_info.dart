@@ -14,15 +14,15 @@ class BreweryInfo extends StatelessWidget {
       children: [
         Expanded(
           flex: 4,
-          child: Image.network("https://icon-library.com/images/beer-bottle-icon/beer-bottle-icon-6.jpg"),
+          child: Image.asset('lib/assets/brewery.jpg'),
         ),
-        Spacer(flex: 1),
+        VerticalDivider(),
         Expanded(
           flex: 6,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Expanded(
+              Center(
                 child: RichText(
                     text: TextSpan(
                         text: _brewery.name != null ? _brewery.name: Constants.noData,

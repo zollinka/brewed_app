@@ -33,11 +33,13 @@ class _BeerRatingState extends State<BeerRating> {
     ),
     body: SafeArea(
     //child: _loading ? CircularProgressIndicator(): Column(
+    child: Padding(
+      padding: EdgeInsets.only(left: 20.0, top: 10.0, right: 20.0),
     child: Column(
     crossAxisAlignment: CrossAxisAlignment.stretch,
     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
     children: [
-      Text(_beer.name),
+      Center(child:RichText(text: TextSpan(text: _beer.name, style: Theme.of(context).textTheme.headline5))),
     Flexible(
     child: StarRating(
         rating: (_rating != null) ? (_rating.rating != null) ? _rating.rating: 0: 0,
@@ -61,7 +63,7 @@ class _BeerRatingState extends State<BeerRating> {
       Flexible(child: AttributeRatingSlider(value: (_rating != null) ? (_rating.sweetness != null) ? _rating.sweetness: 0: 0, attribute: Constants.sweetness, updateRatingValue: _updateRating)),
       Flexible(child: AttributeRatingSlider(value: (_rating != null) ? (_rating.bitterness != null) ? _rating.bitterness: 0: 0, attribute: Constants.bitterness, updateRatingValue: _updateRating)),
       Flexible(child: FlatButton(child: Text(Constants.rate), onPressed: () {_saveRating(context);},),)
-    ])));
+    ]))));
   }
 
   void _getRating()async{

@@ -15,7 +15,7 @@ class BeerInfo extends StatelessWidget {
       children: [
         Expanded(
           flex: 4,
-          child: Image.network("https://icon-library.com/images/beer-bottle-icon/beer-bottle-icon-6.jpg"),
+          child: Image.asset('lib/assets/bottle2.jpg'),
         ),
         VerticalDivider(),
         Expanded(
@@ -44,7 +44,7 @@ class BeerInfo extends StatelessWidget {
               Row(
                 children: [
                   StarRating(starCount: 1, rating: (beer.rating != null ) ? beer.rating/5: 0 /5),
-                  (beer.rating != null ) ? Text(beer.rating.toString() + "/5"): Text("No ratings")
+                  (beer.rating != null ) ? Text(beer.rating.toString() + "/5"): Text(Constants.noRatings)
                 ],
               ),
 

@@ -2,9 +2,10 @@ import 'dart:io';
 
 import 'package:brewed/API.dart';
 import 'package:brewed/db/DB.dart';
+import 'package:brewed/ui/Constants.dart';
+import 'package:brewed/ui/alerts/no_internet_alert.dart';
 import 'package:brewed/ui/beer/Beer.dart';
 import 'package:brewed/ui/beer/beer_page.dart';
-import 'package:brewed/ui/brewery/Brewery.dart';
 import 'package:flutter/material.dart';
 
 class PhotoDisplayView extends StatelessWidget {
@@ -14,14 +15,14 @@ class PhotoDisplayView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Captured photo')),
+      appBar: AppBar(title: Text(Constants.capturedPhoto)),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget> [
           Expanded(child: Image.file(File(imagePath))),
           Expanded(
               child: FlatButton(
-                child: Text("Search with this label"),
+                child: Text(Constants.searchWithPhoto),
             onPressed: () => _postToAPI(context),
           ))
         ],
@@ -31,9 +32,12 @@ class PhotoDisplayView extends StatelessWidget {
 
   void _postToAPI(context) async
   {
-    //var response = await API.getBeer();
-    var response = await API.predict(imagePath);
-    _goToBeer(context, response);
+    //showDialog(context: context,builder: (_) => NoInternetAlert(), barrierDismissible: true);
+    try {var response = await API.predict(imagePath);
+    _goToBeer(context, response);}
+    catch (_) {
+      showDialog(context: context,builder: (_) => NoInternetAlert(), barrierDismissible: true);
+    }
   }
 
   void _goToBeer(context, response) async {

@@ -1,3 +1,4 @@
+import 'package:brewed/ui/Constants.dart';
 import 'package:brewed/ui/beer/Beer.dart';
 import 'package:brewed/ui/beer/beer_list_view.dart';
 import 'package:brewed/ui/beer/favourites.dart';
@@ -13,6 +14,7 @@ class _FavouritesTabState extends State<FavouritesTab> {
 
   @override
   Widget build(BuildContext context) {
-    return BeerListView(_favBeers);
+    _favBeers.sort((a, b) => a.name.compareTo(b.name));
+    return (_favBeers.length != 0) ? BeerListView(_favBeers): Center(child: Text(Constants.emptyfavorites),);
   }
 }

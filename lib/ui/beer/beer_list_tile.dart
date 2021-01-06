@@ -30,6 +30,10 @@ class _BeerListTileState extends State<BeerListTile> {
   @override
   Widget build(BuildContext context) {
     return ListTile(
+      leading: Icon(Icons.local_drink),
+      contentPadding: EdgeInsets.only(left:2.0, right: 2.0),
+        //selectedTileColor: Theme.of(context).primaryColor,
+        //tileColor: Theme.of(context).primaryColor,
         title: Text(
           (beer.name != null) ? beer.name:  Constants.noData,
           style: Theme.of(context).textTheme.bodyText2,

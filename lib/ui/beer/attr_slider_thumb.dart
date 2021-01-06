@@ -34,7 +34,7 @@ class AttributeSliderThumb extends SliderComponentShape {
         fontWeight: FontWeight.w700,
         color: sliderTheme.thumbColor, //Text Color of Value on Thumb
       ),*/
-      text: this.value.toStringAsPrecision(2),
+      text: this.value.toStringAsFixed(1),
     );
 
     TextPainter tp = new TextPainter(

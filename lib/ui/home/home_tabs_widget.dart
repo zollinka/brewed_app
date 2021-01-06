@@ -1,5 +1,8 @@
+import 'package:brewed/ui/Constants.dart';
 import 'package:brewed/ui/home/favourites_tab.dart';
 import 'package:brewed/ui/home/search_view.dart';
+import 'package:brewed/ui/home/search_with_filters.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 class TabsWidget extends StatefulWidget {
   @override
@@ -17,13 +20,17 @@ class _TabsWidgetState extends State<TabsWidget> {
         children: [
           TabBar(
             tabs: [
-              Tab(icon: Icon(Icons.star)),
-              Tab(icon: Icon(Icons.search)),
-              Tab(icon: Icon(Icons.favorite)),
+              Tab(icon: Icon(Icons.list), text: Constants.browse,),
+              Tab(icon: Icon(Icons.search), text: Constants.search,),
+              Tab(icon: Icon(Icons.favorite), text: Constants.favorites,),
             ],
+            labelColor: Theme.of(context).accentColor,
+            unselectedLabelColor: Theme.of(context).disabledColor,
           ),
 
           Expanded(
+            child: Padding(
+            padding: EdgeInsets.only(left:20.0,right:20.0),
             child: TabBarView(
             children: [
               Tab(icon: Icon(Icons.star)),
@@ -32,7 +39,7 @@ class _TabsWidgetState extends State<TabsWidget> {
 
 
             ],
-          ),
+          )),
           )
         ],
       )

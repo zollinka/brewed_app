@@ -1,3 +1,4 @@
+import 'package:brewed/ui/Constants.dart';
 import 'package:brewed/ui/beer/Beer.dart';
 import 'package:brewed/ui/beer/tab_compound.dart';
 import 'package:brewed/ui/beer/tab_flavor.dart';
@@ -18,13 +19,18 @@ class BeerAttributes extends StatelessWidget {
         child: Column(
           children: [TabBar(
                 tabs: [
-                  Tab(icon: Icon(Icons.info)),
-                  Tab(icon: Icon(Icons.local_drink)),
-                  Tab(icon: Icon(Icons.person)),
+                  Tab(icon: Icon(Icons.info), text: Constants.info,),
+                  Tab(icon: Icon(Icons.people), text: Constants.community,),
+                  Tab(icon: Icon(Icons.person), text: Constants.myrating,),
+
                 ],
+            labelColor: Theme.of(context).accentColor,
+            unselectedLabelColor: Theme.of(context).disabledColor,
               ),
             Expanded(
-              child: TabBarView(
+              child: Padding(
+    padding: EdgeInsets.only(left:20.0,right:20.0, top: 20.0),
+    child:TabBarView(
                 children: [
                   TabInfo(beer),
                   TabCompound(beer),
@@ -32,7 +38,7 @@ class BeerAttributes extends StatelessWidget {
                 ],
               ),
             )
-          ],
+            )],
         )
     );
   }
