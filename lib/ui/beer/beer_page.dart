@@ -1,44 +1,144 @@
+import 'package:brewed/API.dart';
+import 'package:brewed/db/DB.dart';
+import 'package:brewed/ui/Constants.dart';
+import 'package:brewed/ui/alerts/no_internet_alert.dart';
+import 'package:brewed/ui/beer/Beer.dart';
 import 'package:brewed/ui/beer/beer_attributes.dart';
 import 'package:brewed/ui/beer/beer_info.dart';
+import 'package:brewed/ui/beer/beer_rating.dart';
+import 'package:brewed/ui/beer/favourites.dart';
+import 'package:brewed/ui/beer/history.dart';
 import 'package:brewed/ui/beer/star_rating.dart';
 import 'package:brewed/ui/home/settings_menu_popup.dart';
+import 'package:brewed/ui/rating/Rating.dart';
 import 'package:flutter/material.dart';
 
 class BeerPage extends StatefulWidget {
+  final Beer _beer;
+
+  BeerPage(this._beer);
+
   @override
-  _BeerPageState createState() => _BeerPageState();
+  _BeerPageState createState() => _BeerPageState(_beer);
 }
 
 class _BeerPageState extends State<BeerPage> {
-  double rating = 3.5;
+  Rating rating;
+  Beer beer;
+  bool fav;
+  bool _loading = true;
+
+  _BeerPageState(this.beer);
+  @override
+  void initState() {
+    super.initState();
+    _getAttributes();
+    _getRating();
+    History.addToHistory(beer);
+    setState(() {
+
+      fav = Favourites.isFavourite(beer);});
+      _loading = false;
+
+  }
+
+  void dispose() {
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return _loading ? CircularProgressIndicator(): Scaffold(
       appBar: AppBar(
-        title: Text("Rate this app"),
         actions: [
-          settingsMenuPopup()
+          new IconButton(
+              icon: Icon( fav ? Icons.favorite: Icons.favorite_border, color: Theme.of(context).accentColor),
+              onPressed: () {_favourite();}),
+          SettingsMenuPopup(),
         ],
       ),
       body: SafeArea(
+        //child: _loading ? CircularProgressIndicator(): Column(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Flexible(
-            child: BeerInfo()),
+            child: BeerInfo(beer)),
+            Row(children: <Widget>[
+              Expanded(
+                  child: Divider()
+              ),
+
+              Text(Constants.rate),
+
+              Expanded(
+                  child: Divider()
+              ),
+            ],),
             Flexible(
               child: StarRating(
-                rating: rating,
-                onRatingChanged: (rating) => setState(() => this.rating = rating))),
+                rating: (rating != null) ? rating.rating: 0,
+                onRatingChanged: (rating) => _setRating(context, rating))),
             //Spacer(flex: 1,),
             Expanded(
               flex: 2,
-              child: BeerAtribbutes()
+              child: BeerAttributes(beer, rating)//, _goToRating(context))
             )
           ],
         ),
       )
     );
   }
+  void _getRating() async{
+    try{
+    Rating rating = await DB.getRatingByBeer(beer.id);
+    setState(() {
+      this.rating = (rating != null) ? rating: null;
+    });}
+    catch (error) {
+      Navigator.of(context).pop();
+      showDialog(context: context,builder: (_) => NoInternetAlert(), barrierDismissible: true);
+    }
+  }
+
+  void _getAttributes() async{
+    try{
+      var data = await API.getAttributeOfBeer(this.beer.id);
+    Beer beerA = (data != null) ? this.beer.update(data): this.beer;
+    setState(() { this.beer = beerA;});}
+    catch (error) {
+    Navigator.of(context).pop();
+    showDialog(context: context,builder: (_) => NoInternetAlert(), barrierDismissible: true);
+    }
+  }
+
+  void _setRating(context, rating){
+    //setState(() { this.rating.rating = rating;});
+    _goToRating(context);
+  }
+
+  Future<void> _goToRating(context) async {
+    await Navigator.push(context,
+        MaterialPageRoute(
+          builder: (BuildContext context) => BeerRating(beer),
+        ));
+    _getRating();
+    _getAttributes();
+  }
+
+  void _favourite(){
+    setState(() {
+      if (Favourites.isFavourite(beer)){
+        Favourites.removeFavourite(beer);
+        fav = false;
+      }
+      else {
+        Favourites.addFavourite(beer);
+        fav = true;
+      }
+    });
+  }
+
+
 }

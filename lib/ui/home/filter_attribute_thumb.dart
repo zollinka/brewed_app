@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 
-class AttributeSliderThumb extends SliderComponentShape {
-  final double value;
+class FilterAttributeSliderThumb extends SliderComponentShape {
+  final double min;
+  final double max;
   final double thumbRadius;
   final thumbHeight;
 
-  const AttributeSliderThumb({
+  const FilterAttributeSliderThumb({
     this.thumbRadius,
     this.thumbHeight,
-    this.value});
+    this.min,
+    this.max});
 
   @override void paint(
       PaintingContext context,
@@ -34,7 +36,7 @@ class AttributeSliderThumb extends SliderComponentShape {
         fontWeight: FontWeight.w700,
         color: sliderTheme.thumbColor, //Text Color of Value on Thumb
       ),*/
-      text: this.value.toStringAsFixed(1),
+      text: this.max.toStringAsPrecision(2),
     );
 
     TextPainter tp = new TextPainter(

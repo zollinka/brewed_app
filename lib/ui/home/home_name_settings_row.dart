@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:brewed/ui/home/settings_menu_popup.dart';
 import 'package:flutter/material.dart';
 
@@ -9,38 +11,40 @@ class NameSettingsRow extends StatefulWidget {
 class _NameSettingsRowState extends State<NameSettingsRow> {
   @override
   Widget build(BuildContext context) {
-    return Row(
+    return Padding(
+        padding: EdgeInsets.only(top:10.0),
+        child: Row(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget> [
-        Flexible(
-          flex:8,
+        Spacer(),
+        Expanded(
+          flex:3,
           child:
           Column(
 
-            crossAxisAlignment: CrossAxisAlignment.stretch,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               _buildTabName(),
             ],
           ),
         ),
-        Flexible(
+        Expanded(
           flex: 1,
           child:
           Column(
-            crossAxisAlignment: CrossAxisAlignment.end,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               _buildSettingsMenu()
             ],
           ),
         ),
       ],
-    );
+    ));
   }
 
 
-  Widget _buildTabName() => Text(
-    "brewed",
-    textAlign: TextAlign.left,
-  );
+  Widget _buildTabName() => new Image.asset('lib/assets/brewed_title.png',);
 
-  Widget _buildSettingsMenu() => settingsMenuPopup();
+  Widget _buildSettingsMenu() => SettingsMenuPopup();
 }

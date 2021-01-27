@@ -37,6 +37,9 @@ class StarRating extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return new Row(children: new List.generate(starCount, (index) => buildStar(context, index)));
+    return new Row(
+        //crossAxisAlignment: CrossAxisAlignment.stretch,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: new List.generate(starCount, (index) => buildStar(context, index)));
   }
 }

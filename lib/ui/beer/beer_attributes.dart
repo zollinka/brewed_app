@@ -1,35 +1,44 @@
+import 'package:brewed/ui/Constants.dart';
+import 'package:brewed/ui/beer/Beer.dart';
+import 'package:brewed/ui/beer/tab_compound.dart';
 import 'package:brewed/ui/beer/tab_flavor.dart';
 import 'package:brewed/ui/beer/tab_info.dart';
+import 'package:brewed/ui/rating/Rating.dart';
 import 'package:flutter/material.dart';
 
-class BeerAtribbutes extends StatelessWidget {
+class BeerAttributes extends StatelessWidget {
+  final Beer beer;
+  final Rating rating;
+
+  BeerAttributes(this.beer, this.rating);
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-        length: 4,
+        length: 3,
         child: Column(
-          children: [
-            Flexible(
-              child:  TabBar(
+          children: [TabBar(
                 tabs: [
-                  Tab(icon: Icon(Icons.info)),
-                  Tab(icon: Icon(Icons.local_drink)),
-                  Tab(icon: Icon(Icons.face)),
-                  Tab(icon: Icon(Icons.visibility)),
+                  Tab(icon: Icon(Icons.info), text: Constants.info,),
+                  Tab(icon: Icon(Icons.people), text: Constants.community,),
+                  Tab(icon: Icon(Icons.person), text: Constants.myrating,),
+
                 ],
+            labelColor: Theme.of(context).accentColor,
+            unselectedLabelColor: Theme.of(context).disabledColor,
               ),
-            ),
-            Flexible(
-              child: TabBarView(
+            Expanded(
+              child: Padding(
+    padding: EdgeInsets.only(left:20.0,right:20.0, top: 20.0),
+    child:TabBarView(
                 children: [
-                  TabInfo(),
-                  TabFlavor(),
-                  Tab(icon: Icon(Icons.person)),
-                  Tab(icon: Icon(Icons.person)),
+                  TabInfo(beer),
+                  TabCompound(beer),
+                  TabFlavor(rating),
                 ],
               ),
             )
-          ],
+            )],
         )
     );
   }
