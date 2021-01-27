@@ -20,10 +20,10 @@ class DB{
       },
       version: 1,
     );
-    final List<Beer> beers = Beer.listFromJson(await API.getBeers());
+    //final List<Beer> beers = Beer.listFromJson(await API.getBeers());
     //final Beer beer = Beer.fromJson(await API.getBeer());
     //final Rating rating = Rating.fromJson(await API.getRatingByBeer("  "));
-    await insertBeers(beers);
+    //await insertBeers(beers);
     //await insertBeer(beer);
     //await insertRating(rating);
   }
@@ -67,13 +67,15 @@ class DB{
   }
 
   static Future<List<Beer>> getBeers() async{
+    final List<Beer> beers = Beer.listFromJson(await API.getBeers());
     final Database db = await database;
+    insertBeers(beers);
     final List<Map<String, dynamic>> beersMapped = await db.rawQuery(Sqls.selectBeerWithBrewery);
     return Beer.listFromMap(beersMapped);
   }
 
 
-  static Future<List<Beer>> searchBeers(String searchString) async{
+  static Future<List<Beer>> searchBeers2(String searchString) async{
     final Database db = await database;
     searchString = "%" + searchString + "%";
     final List<Map<String, dynamic>> beersNameMapped = await db.rawQuery(Sqls.searchBeerName,[searchString]);
@@ -82,6 +84,17 @@ class DB{
     var beersMapped = [...{...beersBarCodeMapped + beersNameMapped + beersBreweryNameMapped}];
     return Beer.listFromMap(beersMapped);
   }
+
+  static Future<List<Beer>> searchBeers(String searchString) async{
+    final List<Beer> beersName = Beer.listFromJson(await API.searchByName(searchString));
+    insertBeers(beersName);
+    final List<Beer> beersBreweryName = Beer.listFromJson(await API.searchByBreweryName(searchString));
+    insertBeers(beersBreweryName);
+    var beers = beersBreweryName + beersName;
+    return beers.toSet().toList();
+  }
+
+
 
   static Future<List<Beer>> selectBeersByBrewery(String breweryId) async{
     final Database db = await database;
@@ -97,14 +110,18 @@ class DB{
   }
 
   static Future<Rating> getRatingByBeer(String beerId) async{
-    final Database db = await database;
-    final List<Map<String, dynamic>> ratingsMapped = await db.rawQuery(Sqls.selectRatingByBeer, [beerId]);
-    if (ratingsMapped.length != 0){
-      return Rating.fromJson(ratingsMapped[0]);
+    final response = await API.getRatingByBeer(beerId);
+    if ( response != null){
+      final Rating rating = Rating.fromMap(response);
+      insertRating(rating);
+      final Database db = await database;
+      final List<Map<String, dynamic>> ratingsMapped = await db.rawQuery(Sqls.selectRatingByBeer, [beerId]);
+      if (ratingsMapped.length != 0){
+        return Rating.fromJson(ratingsMapped[0]);
+      }
     }
-    else {
-      return null;
-    }
+    return null;
+
   }
 
   static Future<List<Beer>> getBeersFiltered() async{

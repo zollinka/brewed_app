@@ -12,7 +12,7 @@ class API {
   static String deviceId;
   static Future<void> init() async{
     dio = new Dio();
-    dio.options.baseUrl= "http://192.168.0.104";
+    dio.options.baseUrl= "https://brewed.pl";
     dio.options.connectTimeout=100000;
     var deviceInfo = DeviceInfoPlugin();
     var androidDeviceInfo = await deviceInfo.androidInfo;
@@ -21,42 +21,37 @@ class API {
 
   static Future <dynamic> predict(imagePath) async{
 
-    dio.options.baseUrl= "http://192.168.0.109:5000";
+    //dio.options.baseUrl= "http://192.168.0.109:5000";
     dio.interceptors.add(LogInterceptor(request: true, requestBody: true, requestHeader: true, responseBody: true));
     String fileName = imagePath.split('/').last;
     FormData formData = new FormData.fromMap({"image": await MultipartFile.fromFile(imagePath,filename: fileName, contentType: new MediaType('image', 'jpeg')
     )});
-    print(formData.files.first.value.filename);
     final response = await dio.post("/api/predict",
         data: formData,
-        onSendProgress: (int sent, int total) {
-          print("$sent $total");},
         options: Options(contentType: 'multipart/form-data')
     );
-    print(response.data);
     return response.data;
   }
 
   static Future <List<dynamic>> search() async {
-    dio.options.baseUrl= "http://192.168.0.104";
+    //dio.options.baseUrl= "http://192.168.0.104";
     final response = await dio.get("/getbeers");
     return response.data;
   }
 
   static Future <List<dynamic>> getBeers() async {
-    dio.options.baseUrl= "http://192.168.0.104";
-    print("zaczynam pobieranie");
-    final response = await dio.get("/api/beer");
-    return response.data;
+    //dio.options.baseUrl= "http://192.168.0.104";
+    try{final response = await dio.get("/api/beer");
+    return response.data;}
+    catch(e){}
   }
 
   static Future <List<dynamic>> getFilteredBeers() async {
-    dio.options.baseUrl= "http://192.168.0.104";
+    //dio.options.baseUrl= "http://192.168.0.104";
     var data = Filters.toMap();
-    print(data);
-    try{final response = await dio.post("/api/beer/filter", data: data);print(response.data);
+    try{final response = await dio.post("/api/beer/filter", data: data);
     return response.data;}
-    catch(e) {print(e);}
+    catch(e) {}
 
   }
 
@@ -67,28 +62,26 @@ class API {
   }
 
   static Future <dynamic> getBeerByBarcode(String barCode) async {
-    dio.options.baseUrl= "http://192.168.0.104";
+    //dio.options.baseUrl= "http://192.168.0.104";
     final response = await dio.get("/api/beer", queryParameters: {"barCode": barCode});
     return response.data;
   }
 
   static Future <dynamic> getBeerByName(String name) async {
-    dio.options.baseUrl= "http://192.168.0.104";
-    final response = await dio.get("/api/beer", queryParameters: {"name": name});
+    //dio.options.baseUrl= "http://192.168.0.104";
+    final response = await dio.get("/api/beer", queryParameters: {"name": name}, options: Options(
+    followRedirects: true));
     return response.data;
   }
 
   static Future <dynamic> getRatingByBeer(String beerId) async {
-    dio.options.baseUrl= "http://192.168.0.104";
+    //dio.options.baseUrl= "http://192.168.0.104";
     try{
-    final response = await dio.get("/getRating");
-    print(response.data);
+    final response = await dio.get('/api/beer-ratings', queryParameters: {"beerId": beerId, "userId": deviceId});
     return response.data;}
     catch(e)
     {
-      print(e);
-      print(e.errno);
-      if (e.response.statusCode == 500)
+      if (e.response.statusCode == 500 || e.response.statusCode == 404)
         {
           return null;
         }
@@ -97,9 +90,8 @@ class API {
   }
 
   static Future <dynamic> getAttributeOfBeer(String beerId) async {
-    dio.options.baseUrl= "http://192.168.0.104";
+    //dio.options.baseUrl= "http://192.168.0.104";
     try{final response = await dio.get('/api/beer-ratings/compound', queryParameters: {"beerId": beerId});
-    print(response.data);
     return response.data;}
     catch(e)
     {
@@ -111,8 +103,23 @@ class API {
   }
 
   static Future<void> putRating(Rating rating) async {
-    dio.options.baseUrl= "http://192.168.0.104";
+    //dio.options.baseUrl= "http://192.168.0.104";
     await dio.put('/api/beer-ratings', data: rating.toJson(deviceId));
+  }
+
+  static Future<List<dynamic>> searchByName(String searchString) async {
+    final data = {"name": searchString};
+    try{
+      final response = await dio.post("/api/beer/findByAttrs", data: data);
+      return response.data;}
+    catch(e) {return null;}
+  }
+  static Future<List<dynamic>> searchByBreweryName(String searchString) async {
+    final data = {"breweryName": searchString};
+    try{
+      final response = await dio.post("/api/beer/findByAttrs", data: data);
+      return response.data;}
+    catch(e) {return null;}
   }
 
   /*
