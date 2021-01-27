@@ -20,6 +20,16 @@ class Rating{
     fruit = json['fruit'];
   }
 
+  Rating.fromMap(Map json){
+    beerId = json['beer'];
+    rating = json['score'] != null ? json['score'] * 5: null;
+    sweetness = (json['sweetness'] != null) ? json['sweetness'] * 100: null;
+    dryness = (json['dryness'] != null) ? json['dryness'] * 100 : null;
+    sourness = (json['sour'] != null) ? json['sour'] * 100 : null;
+    bitterness = (json['bitterness'] != null) ? json['bitterness'] * 100: null;
+    fruit = json['fruit'];
+  }
+
   Map<String, dynamic> toMap() {
     return {
       'rating': rating,

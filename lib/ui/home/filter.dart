@@ -12,11 +12,13 @@ class FilterView extends StatefulWidget {
 }
 
 class _FilterViewState extends State<FilterView> {
+  bool _searching = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
     appBar: AppBar(title: Text(Constants.filter)),
-        body: SafeArea(
+        body: _searching ? Center(child: CircularProgressIndicator(),) :
+        SafeArea(
     child: Padding(
     padding: EdgeInsets.only(left: 20.0,top: 20.0,right: 20.0),
     child: Column(
@@ -106,12 +108,18 @@ class _FilterViewState extends State<FilterView> {
   }
 
   Future <void> _searchWithFilters(context) async{
+    setState(() {
+      _searching = true;
+    });
     try {
       var beers = await DB.getBeersFiltered();
       Navigator.pop(context, beers);
     }
     catch (_) {
       Navigator.of(context).pop();
+      setState(() {
+        _searching = false;
+      });
       showDialog(context: context,builder: (_) => NoInternetAlert(), barrierDismissible: true);
     }
   }
