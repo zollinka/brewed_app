@@ -25,7 +25,7 @@ class Beer {
       alcoholPercentage = json['alcoholPercentage'];
       note = (json['beerNote'] != null) ? json['beerNote']['note']: null;
       barCode = json['barCode'];
-      ibu = json['ibu'];
+      ibu = (json['ibu'] != null) ? json['ibu'].toDouble(): null;
   }
 
   Beer.fromMap(Map json){
@@ -36,7 +36,7 @@ class Beer {
     alcoholPercentage = json['alcoholPercentage'];
     note = json['note'];
     barCode = json['barCode'];
-    ibu = json['ibu'];
+    ibu = (json['ibu'] != null) ? json['ibu'].toDouble(): null;
   }
 
   Beer.fromMapWithBrewery(Map json){
@@ -47,7 +47,7 @@ class Beer {
     alcoholPercentage = json['alcoholPercentage'];
     note = json['note'];
     barCode = json['barCode'];
-    ibu = json['ibu'];
+    ibu = (json['ibu'] != null) ? json['ibu'].toDouble(): null;
   }
 
   Map<String, dynamic> toMap() {
@@ -57,7 +57,7 @@ class Beer {
       'name': name,
       'alcoholPercentage': alcoholPercentage,
       'temperature': temperature,
-      'ibu': ibu,
+      'ibu': (ibu != null) ? ibu.toInt(): null,
       'sweetness': sweetness,
       'dryness': dryness,
       'sourness': sourness,
@@ -79,7 +79,7 @@ class Beer {
       'name': name,
       'alcoholPercentage': alcoholPercentage,
       'temperature': temperature,
-      'ibu': ibu,
+      'ibu': (ibu != null) ? ibu.toInt(): null,
       'sweetness': sweetness,
       'dryness': dryness,
       'sourness': sourness,
@@ -99,7 +99,7 @@ class Beer {
     this.sweetness = json['sweetness'];
     this.dryness = json['dryness'];
     this.bitterness = json['bitterness'];
-    this.rating = json['score'] * 5;
+    this.rating = json['score'] != null ? json['score'] * 5: null;
     return this;
   }
 
