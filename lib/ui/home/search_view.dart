@@ -3,6 +3,7 @@ import 'package:brewed/ui/Constants.dart';
 import 'package:brewed/ui/beer/Beer.dart';
 import 'package:brewed/ui/beer/beer_list_tile.dart';
 import 'package:brewed/ui/beer/favourites.dart';
+import 'package:brewed/ui/beer/history.dart';
 import 'package:flappy_search_bar/flappy_search_bar.dart';
 import 'package:flutter/material.dart';
 
@@ -25,13 +26,15 @@ class _SearchViewState extends State<SearchView> {
             onItemFound: (Beer beer, int index) {
               return BeerListTile(beer: beer);
             },
+      suggestions: History.history.toList(),
             onError: (error) {
               return Center(
-                child: Text("Error occurred : $error"),
+                child: Text(Constants.noInternet),
               );
             },
       hintText: Constants.placeholder,
       emptyWidget: Text(Constants.emptysearch),
+      cancellationText: Text(Constants.cancel),
       //suggestions: Favourites.favourites.toList(),
 
 

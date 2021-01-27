@@ -78,7 +78,6 @@ class _PhotoCaptureViewState extends State<PhotoCaptureView> {
                 ));
           }
           catch (e) {
-            print(e);
           }
         },
 

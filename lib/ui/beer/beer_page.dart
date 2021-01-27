@@ -1,11 +1,13 @@
 import 'package:brewed/API.dart';
 import 'package:brewed/db/DB.dart';
+import 'package:brewed/ui/Constants.dart';
 import 'package:brewed/ui/alerts/no_internet_alert.dart';
 import 'package:brewed/ui/beer/Beer.dart';
 import 'package:brewed/ui/beer/beer_attributes.dart';
 import 'package:brewed/ui/beer/beer_info.dart';
 import 'package:brewed/ui/beer/beer_rating.dart';
 import 'package:brewed/ui/beer/favourites.dart';
+import 'package:brewed/ui/beer/history.dart';
 import 'package:brewed/ui/beer/star_rating.dart';
 import 'package:brewed/ui/home/settings_menu_popup.dart';
 import 'package:brewed/ui/rating/Rating.dart';
@@ -32,6 +34,7 @@ class _BeerPageState extends State<BeerPage> {
     super.initState();
     _getAttributes();
     _getRating();
+    History.addToHistory(beer);
     setState(() {
 
       fav = Favourites.isFavourite(beer);});
@@ -62,6 +65,17 @@ class _BeerPageState extends State<BeerPage> {
           children: [
             Flexible(
             child: BeerInfo(beer)),
+            Row(children: <Widget>[
+              Expanded(
+                  child: Divider()
+              ),
+
+              Text(Constants.rate),
+
+              Expanded(
+                  child: Divider()
+              ),
+            ],),
             Flexible(
               child: StarRating(
                 rating: (rating != null) ? rating.rating: 0,
@@ -69,7 +83,7 @@ class _BeerPageState extends State<BeerPage> {
             //Spacer(flex: 1,),
             Expanded(
               flex: 2,
-              child: BeerAttributes(beer, rating)
+              child: BeerAttributes(beer, rating)//, _goToRating(context))
             )
           ],
         ),
@@ -83,7 +97,6 @@ class _BeerPageState extends State<BeerPage> {
       this.rating = (rating != null) ? rating: null;
     });}
     catch (error) {
-      print(error);
       Navigator.of(context).pop();
       showDialog(context: context,builder: (_) => NoInternetAlert(), barrierDismissible: true);
     }
@@ -95,7 +108,6 @@ class _BeerPageState extends State<BeerPage> {
     Beer beerA = (data != null) ? this.beer.update(data): this.beer;
     setState(() { this.beer = beerA;});}
     catch (error) {
-      print(error);
     Navigator.of(context).pop();
     showDialog(context: context,builder: (_) => NoInternetAlert(), barrierDismissible: true);
     }
@@ -127,4 +139,6 @@ class _BeerPageState extends State<BeerPage> {
       }
     });
   }
+
+
 }

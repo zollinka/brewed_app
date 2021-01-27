@@ -56,7 +56,7 @@ class BeerGuide extends StatelessWidget {
     );
 
     return Scaffold(
-        appBar: AppBar(title: Text("Beer Guide")),
+        appBar: AppBar(title: Text(Constants.beerGuide)),
     body: SafeArea(child:ListView(
       children: [
         _brewingTile,

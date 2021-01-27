@@ -33,7 +33,7 @@ class Rating{
 
   Map<String, dynamic> toJson(String userId) {
     return {
-      'score': rating/5,
+      'score': (rating != null) ? rating/5: null,
       'beer': beerId,
       'sweetness': (sweetness != null) ? sweetness/100: null,
       'bitterness':(bitterness!= null) ? bitterness/100: null,

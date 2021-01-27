@@ -1,4 +1,5 @@
-import 'file:///C:/Users/Foczka/AndroidStudioProjects/brewed/lib/ui/Constants.dart';
+import 'package:brewed/ui/Constants.dart';
+import 'package:brewed/ui/home/about.dart';
 import 'package:brewed/ui/home/beer_guide.dart';
 import 'package:flutter/material.dart';
 
@@ -34,11 +35,7 @@ class SettingsMenuPopup extends StatelessWidget {
   void _goToSettings(context){
     Navigator.push(context,
         MaterialPageRoute(
-          builder: (context) => Scaffold(
-      appBar: AppBar(title: Text("Beer Guide"),actions: [
-        SettingsMenuPopup()
-      ],),
-      body: BeerGuide(),
-       )));
+          builder: (context) => About(), //response.data.toString(),),
+        ));
   }
 }

@@ -1,4 +1,5 @@
 import 'package:brewed/db/DB.dart';
+import 'package:brewed/ui/Constants.dart';
 import 'package:brewed/ui/beer/beer_list_view.dart';
 import 'package:brewed/ui/beer/Beer.dart';
 import 'package:brewed/ui/brewery/Brewery.dart';
@@ -42,10 +43,22 @@ class _BreweryPageState extends State<BreweryPage> {
           children: [
             Flexible(
                 child: BreweryInfo(_brewery)),
-            Divider(),
+            Row(
+                children: <Widget>[
+                  Expanded(
+                      child: Divider()
+                  ),
+
+                  Text(Constants.beers),
+
+                  Expanded(
+                      child: Divider()
+                  ),
+                ]
+            ),
             _loading ? CircularProgressIndicator() : Expanded(
                 flex: 2,
-                child: BeerListView(_beers)
+                child: Padding(child:BeerListView(_beers), padding: EdgeInsets.only(left:20.0,right:20.0),)
             )
           ],
         ),
